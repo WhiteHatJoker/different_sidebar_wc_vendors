@@ -111,7 +111,14 @@ get_header( 'shop' ); ?>
 		 *
 		 * @hooked woocommerce_get_sidebar - 10
 		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		if ( !$vendor_id ) {
+			do_action( 'woocommerce_sidebar' );
+        	} else { ?>
+                	<div id="sidebar" class="sidebar fusion-widget-area fusion-content-widget-area" style="float: left;">
+                    	<?php   dynamic_sidebar( 'makers' ); ?>
+                	</div>
+        	<?php } ?>
 
 <?php get_footer( 'shop' ); ?>
